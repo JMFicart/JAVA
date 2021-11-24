@@ -4,7 +4,7 @@ public class ExB11 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// Prochain Exercice
+		// Prochain Exercice non communiqué pour le moment
 	}
 
 }
