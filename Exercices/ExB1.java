@@ -25,5 +25,4 @@ public class ExB1 {
 		System.out.println("Année bissextile = " + annee);
 		sc.close();
 	}
-
 }

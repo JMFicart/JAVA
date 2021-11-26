@@ -13,30 +13,35 @@ public class ExB9 {
 
 		System.out.print("Entrez une phrase = ");
 		phrase = sc.nextLine();
-		// 122
+
+		// Minuscules
 		for (int ilettre = 97; ilettre <= 122; ilettre++) 
 		{
 			cpt = 0;
-
 			for (int i = 0; i < phrase.length(); i++)
 			{
 				ascii = phrase.charAt(i);
-
-				if (ascii < 97)
-				{
-					ascii = ascii + 32;
-				}
-
 				if (ascii == ilettre)
 				{
 					cpt++;
 				}
-				
 			}
-
+			System.out.println("Nombre de caractère " + Character.toString(ilettre) + " = " + cpt);
+		}
+		// Majuscules
+		for (int ilettre = 65; ilettre <= 90; ilettre++) 
+		{
+			cpt = 0;
+			for (int i = 0; i < phrase.length(); i++)
+			{
+				ascii = phrase.charAt(i);
+				if (ascii == ilettre)
+				{
+					cpt++;
+				}
+			}
 			System.out.println("Nombre de caractère " + Character.toString(ilettre) + " = " + cpt);
 		}
 		sc.close();
 	}
-
 }
