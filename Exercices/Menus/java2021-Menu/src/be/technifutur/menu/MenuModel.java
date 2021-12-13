@@ -3,24 +3,33 @@ package be.technifutur.menu;
 import java.util.ArrayList;
 
 public class MenuModel {
-    private ArrayList<Item> itemList = new ArrayList<>();
+    private ArrayList<MenuNode> menuNodeList = new ArrayList<>();
+    String name;
 
-    public void addItem(Item item) {
-        itemList.add(item);
+    public MenuModel(String name) {
+        this.name = name;
     }
 
-    public Item getItem(int pos) {
-        if (pos >= 0 && pos < itemList.size())
-        {
-            return itemList.get(pos);
+    public void addNode(MenuNode menunode) {
+        if (menunode != null) {
+            this.menuNodeList.add(menunode);
         }
-        else
+    }
+
+    public MenuNode getNode(int pos) {
+        MenuNode result = null;
+        if (pos >= 0 && pos < menuNodeList.size())
         {
-            return null;
+            result = menuNodeList.get(pos);
         }
+        return result;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public int size() {
-        return itemList.size();
+        return this.menuNodeList.size();
     }
 }

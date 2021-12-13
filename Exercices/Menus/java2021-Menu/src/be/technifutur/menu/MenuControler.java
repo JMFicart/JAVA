@@ -1,6 +1,6 @@
 package be.technifutur.menu;
 
-public class MenuControler {
+public class MenuControler implements MenuNode {
     private MenuModel model;
     private MenuVue vue;
 
@@ -12,25 +12,36 @@ public class MenuControler {
         this.vue = vue;
     }
 
-    public Runnable getAction() {
-        int choix = 0;
-        String reponse = "";
+    @Override
+    public String getName() {
+        return model.getName();
+    }
 
-        reponse = vue.saisirMenu(model);
-        if (reponse != "") {
-            choix = Integer.parseInt(reponse);
-            choix--;
-            if (model.getItem(choix) != null) {
-                return model.getItem(choix).getAction();
-            }
-            else
+    @Override
+    public Runnable getAction() {
+        Runnable result = null;
+        int choix = 0;
+        boolean saisieok = false;
+
+        vue.setError(null);
+        do {
+            String reponse = vue.saisirMenu(model);
+            try {
+                choix = Integer.parseInt(reponse) - 1;
+                if (choix >= 0 && choix < model.size()) {
+                    saisieok = true;
+                    MenuNode menuNode = model.getNode(choix);
+                    result = menuNode.getAction();
+                }
+                else {
+                    vue.setError("Il n'y a pas d'option = " + (choix + 1));
+                }
+            } catch(NumberFormatException e)
             {
-                return null;
+                vue.setError(reponse + " n'est pas numérique !");
             }
-        }
-        else
-        {
-            return null;
-        }
+        } while (saisieok == false);
+        vue.setError(null);
+        return result;
     }
 }

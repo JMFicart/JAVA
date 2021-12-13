@@ -1,13 +1,18 @@
 package be.technifutur.menu;
 
-public class Item {
+import java.util.ArrayList;
+
+public class Item implements MenuNode {
     private String itemname;
     private Runnable itemaction;
+    private ArrayList<Item> itemList = new ArrayList<>();
 
+    @Override
     public String getName() {
         return itemname;
     }
 
+    @Override
     public Runnable getAction() {
         return itemaction;
     }
