@@ -12,11 +12,9 @@ public class MenuVue {
 
     public String saisirMenu(MenuModel model) {
         String choix;
-        String souligne = "-";
 
         System.out.println(model.name);
-        souligne = souligne.repeat(model.name.length());
-        System.out.println(souligne);
+        System.out.println("-".repeat(model.name.length()));
         for (int i = 0 ; i < model.size(); i++) {
             System.out.println((i + 1) + " " + model.getNode(i).getName());
         }
