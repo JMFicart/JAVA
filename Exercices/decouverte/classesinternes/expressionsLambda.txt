@@ -1,0 +1,138 @@
+package decouverte.java.classeinterne;
+
+import decouverte.java.collections.BirthdayNameFirstNameComparator;
+import decouverte.java.collections.Personne;
+import java.util.Comparator;
+import java.util.TreeSet;
+
+public class TestClasseInterne {
+
+    /*
+    * Création d'une classe interne
+    * Lien particulier entre la classe interne et la classe englobante
+    * Quand je crée la classe interne, je dois lui dire quelle est la classe englobante
+    * Les classes (des objets) internes ont accès aux variables du contenant
+    * La classe peut être statique : reliée à la classe untel
+    * La classe peut être d'instance : reliée à une instance
+    */
+
+    private static class MyComparator implements Comparator<Personne> {
+
+        @Override
+        public int compare(Personne p1, Personne p2) {
+            int i = p1.getBirthday().compareTo(p2.getBirthday());
+            if (i == 0) {
+                i = p1.getName().compareTo(p2.getName());
+
+                if (i == 0) {
+                    i = p1.getFirstName().compareTo(p2.getFirstName());
+                }
+            }
+            return i;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        new TreeSet<Personne>(getComparator());
+    }
+
+    private class MyComparator2 implements Comparator<Personne> {
+
+        @Override
+        public int compare(Personne p1, Personne p2) {
+            int i = p1.getBirthday().compareTo(p2.getBirthday());
+            if (i == 0) {
+                i = p1.getName().compareTo(p2.getName());
+
+                if (i == 0) {
+                    i = p1.getFirstName().compareTo(p2.getFirstName());
+                }
+            }
+            return i;
+        }
+
+    }
+
+    // Expression lambda
+    // Un objet de type Comparator va être retourné
+    // On a l'impression qu'on passe l'adresse d'une fonction
+    private static Comparator<Personne> getComparator() {
+        return (Personne p1, Personne p2)-> {
+                int i = p1.getBirthday().compareTo(p2.getBirthday());
+                if (i == 0) {
+                    i = p1.getName().compareTo(p2.getName());
+
+                    if (i == 0) {
+                        i = p1.getFirstName().compareTo(p2.getFirstName());
+                    }
+                }
+                return i;
+        };
+    }
+
+    // Création d'une classe anonyme interne à une méthode
+    // Ici je fais un new sur une Interface : on ne peut normalement pas !
+    // On le fait, car c'est une manière de créer un descendant à Comparator auquel je n'ai pas donné de nom
+    /*
+    private static Comparator<Personne> getComparator() {
+        Comparator<Personne> comp = new Comparator<Personne>() {
+
+            @Override
+            public int compare(Personne p1, Personne p2) {
+                int i = p1.getBirthday().compareTo(p2.getBirthday());
+                if (i == 0) {
+                    i = p1.getName().compareTo(p2.getName());
+
+                    if (i == 0) {
+                        i = p1.getFirstName().compareTo(p2.getFirstName());
+                    }
+                }
+                return i;
+            }
+        };
+        return comp;
+    }
+    */
+
+    // Création d'une classe interne à une méthode
+    /*
+    private static Comparator<Personne> getComparator() {
+        class MyComparator3 implements Comparator<Personne> {
+
+            @Override
+            public int compare(Personne p1, Personne p2) {
+                int i = p1.getBirthday().compareTo(p2.getBirthday());
+                if (i == 0) {
+                    i = p1.getName().compareTo(p2.getName());
+
+                    if (i == 0) {
+                        i = p1.getFirstName().compareTo(p2.getFirstName());
+                    }
+                }
+                return i;
+            }
+        }
+        return new MyComparator3();
+    }
+    */
+
+    // Utilisation d'une classe interne à une (classe d') instance englobante
+    /*
+    private static Comparator<Personne> getComparator() {
+        TestClasseInterne enveloppe = new TestClasseInterne();
+        return enveloppe.new MyComparator2();
+    }
+    */
+
+    // Utilisation d'une classe interne à une classe (de classe) englobante
+    /*private static Comparator<Personne> getComparator() {
+        return new TestClasseInterne.MyComparator();
+    }*/
+
+    // Utilisation d'une classe externe
+    /*private static Comparator<Personne> getComparator() {
+        return new BirthdayNameFirstNameComparator();
+    }*/
+
+}
