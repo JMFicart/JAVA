@@ -5,10 +5,11 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TrtFichier2 {
-    public static void main(String[] args) {
+    public static List<Star> readfile() {
         File f = new File("C:\\Users\\studentjava08\\Documents\\Java\\Menus\\java2021-Menu\\src\\collections\\star2.txt");
         String ligne = "";
         String[] morceau = new String[2];
@@ -37,15 +38,13 @@ public class TrtFichier2 {
 
                     star = new Star(namejob,date);
                     starlist.add(star);
-                    System.out.println(namejob + "," + date);
                 }
             }
-            for(Star s: starlist) {
-                System.out.println(s.getName() + ", " + s.getBirthday());
-            }
+
         } catch (FileNotFoundException e) {
             System.out.println("star2.txt n'existe pas !");
         }
+        return starlist;
     }
 
     private static LocalDate ConversionDate(String birthdate)
